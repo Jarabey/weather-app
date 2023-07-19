@@ -68,7 +68,7 @@ form.addEventListener("submit", function (event) {
 
   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showTemperature);
 });
@@ -90,8 +90,7 @@ searchButton.addEventListener("click", function (event) {
   }
 
   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=${units}`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
 
   axios.get(apiUrl).then(showTemperature);
 });
@@ -117,6 +116,8 @@ function showTemperature(response) {
   temperatureElement.dataset.originalValue = temperature;
   h1.innerHTML = `${city}`;
   temperatureElement.innerHTML = `${temperature}<sup>°</sup>`;
+
+  displayTemperature(response);
 }
 
 function convertToFaren(event) {
@@ -143,3 +144,11 @@ faren.addEventListener("click", convertToFaren);
 
 let celsius = document.querySelector("#celsius");
 celsius.addEventListener("click", convertToCelsius);
+
+//Feature #4
+
+function displayTemperature(response) {
+  console.log(response.data);
+  let descriptionElement = document.querySelector("#description");
+  descriptionElement.innerHTML = response.data.weather[0].description;
+}
