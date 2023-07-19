@@ -211,3 +211,10 @@ body {
   font-size: 12px;
   opacity: 0.5;
 }
+
+.logging {
+  font-size: 15px;
+  margin: 20px 0px 0px 0px;
+  color: #2f3542;
+  font-weight: bold;
+}
