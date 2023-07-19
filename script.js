@@ -150,5 +150,9 @@ celsius.addEventListener("click", convertToCelsius);
 function displayTemperature(response) {
   console.log(response.data);
   let descriptionElement = document.querySelector("#description");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+  windElement.innerHTML = response.data.wind.speed;
+  humidityElement.innerHTML = response.data.main.humidity;
   descriptionElement.innerHTML = response.data.weather[0].description;
 }
