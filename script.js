@@ -78,7 +78,7 @@ searchButton.addEventListener("click", function (event) {
 
   let cityName = input.value;
   if (cityName.length === 0) {
-    var err0 = "Enter your location is empty: Setting default to Bangkok";
+    var err0 = "Enter your location is empty: Setting default to London";
     document.getElementById("logging").innerHTML = err0;
     cityName = "London";
     document.getElementById("city").innerHTML = cityName;
