@@ -126,7 +126,13 @@ body.dark-mode {
 .date {
   font-size: 18px;
   padding: 0;
+  margin: 0 0 0px 20px;
+}
+.local_dates {
+  font-size: 15px;
+  padding: 0;
   margin: 0 0 30px 20px;
+  opacity: 0.5;
 }
 
 .hour {
