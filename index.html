@@ -18,7 +18,7 @@
     />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body class="light-mode">
+  <body class="light-mode" onload="weather_datetime">
     <div class="container">
       <div class="search-container">
         <i class="fa-solid fa-location-dot" style="color: #191d23"></i>
@@ -37,7 +37,11 @@
           ></button>
           <h1 class="city" id="city">San Pedro Sula</h1>
           <h2 class="date" id="dates">
+            Wednesday, July 19, 2023 22:11 PM
             <strong class="hour"></strong>
+          </h2>
+          <h2 class="local_dates" id="local_dates">
+            Your Current Local Time - 00:00 PM
           </h2>
           <div class="weather-big">
             <img
@@ -45,7 +49,7 @@
               class="principal-weather-gif"
               id="principal-weather-gif"
             />
-            <h3 class="weather-type" id="description">Cloudy</h3>
+            <h3 class="weather-type" id="description">Broken Clouds</h3>
           </div>
           <h4 class="temperature">
             <span id="temperature">10<sup>º</sup></span
