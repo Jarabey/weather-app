@@ -153,8 +153,56 @@ function displayTemperature(response) {
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
   let feelElement = document.querySelector("#feels");
+  let weatherIcon = document.querySelector("#principal-weather-gif");
+
   feelElement.innerHTML = Math.round(response.data.main.feels_like);
   windElement.innerHTML = Math.round(response.data.wind.speed);
   humidityElement.innerHTML = response.data.main.humidity;
   descriptionElement.innerHTML = response.data.weather[0].description;
+
+  //Weathers
+
+  if (response.data.weather[0].main == "Clouds") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481";
+  } else if (response.data.weather[0].main == "Drizzle") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/704/original/output-onlinegiftools%282%29.gif?1688702896";
+  } else if (response.data.weather[0].main == "Thunderstorm") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/707/original/output-onlinegiftools%285%29.gif?1688702911";
+  } else if (response.data.weather[0].main == "Rain") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/703/original/output-onlinegiftools%281%29.gif?1688702891";
+  } else if (response.data.weather[0].main == "Snow") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/705/original/output-onlinegiftools%283%29.gif?1688702901";
+  } else if (response.data.weather[0].main == "Mist") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481";
+  } else if (response.data.weather[0].main == "Smoke") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/709/original/output-onlinegiftools%287%29.gif?1688702923";
+  } else if (response.data.weather[0].main == "Haze") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/702/original/output-onlinegiftools_%282%29.gif?1688702884";
+  } else if (response.data.weather[0].main == "Dust") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/709/original/output-onlinegiftools%287%29.gif?1688702923";
+  } else if (response.data.weather[0].main == "Fog") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/702/original/output-onlinegiftools_%282%29.gif?1688702884";
+  } else if (response.data.weather[0].main == "Ash") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481";
+  } else if (response.data.weather[0].main == "Squall") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/709/original/output-onlinegiftools%287%29.gif?1688702923";
+  } else if (response.data.weather[0].main == "Tornado") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/709/original/output-onlinegiftools%287%29.gif?1688702923";
+  } else if (response.data.weather[0].main == "Clear") {
+    weatherIcon.src =
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/708/original/output-onlinegiftools%286%29.gif?1688702917";
+  }
 }
