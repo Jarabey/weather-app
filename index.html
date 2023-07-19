@@ -18,7 +18,7 @@
     />
     <link rel="stylesheet" href="./style.css" />
   </head>
-  <body>
+  <body class="light-mode">
     <div class="container">
       <div class="search-container">
         <i class="fa-solid fa-location-dot" style="color: #191d23"></i>
@@ -31,7 +31,10 @@
       </div>
       <div class="weather-container">
         <div class="weather-box">
-          <button class="fa-solid fa-circle-half-stroke"></button>
+          <button
+            class="fa-solid fa-circle-half-stroke"
+            id="dark-mode-toggle"
+          ></button>
           <h1 class="city" id="city">San Pedro Sula</h1>
           <h2 class="date" id="dates">
             <strong class="hour"></strong>
