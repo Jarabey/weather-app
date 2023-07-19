@@ -6,9 +6,19 @@
   box-sizing: border-box;
 }
 
-body {
+body.light-mode {
   height: 100vh;
   background-color: #dce3ea;
+  color: #2f3542;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+body.dark-mode {
+  background-color: #222222;
+  color: #222222;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,6 +90,7 @@ body {
   border-radius: 11px;
   position: relative;
 }
+
 .weather-box button {
   background-color: transparent;
   border: none;
@@ -218,4 +229,17 @@ body {
   margin: 20px 0px 0px 0px;
   color: #2f3542;
   font-weight: bold;
+}
+
+body.dark-mode .credits,
+body.dark-mode .open-code,
+body.dark-mode .logging {
+  color: #fff;
+}
+
+body.dark-mode .weather-box,
+body.dark-mode .search-container,
+body.dark-mode .placeholder-text {
+  background-color: #fff;
+  opacity: 0.9;
 }
