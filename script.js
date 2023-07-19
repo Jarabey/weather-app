@@ -206,3 +206,12 @@ function displayTemperature(response) {
       "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/708/original/output-onlinegiftools%286%29.gif?1688702917";
   }
 }
+
+//DarkMode
+
+let darkModeToggle = document.getElementById("dark-mode-toggle");
+let body = document.body;
+
+darkModeToggle.addEventListener("click", () => {
+  body.classList.toggle("dark-mode");
+});
