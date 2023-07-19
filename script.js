@@ -152,7 +152,9 @@ function displayTemperature(response) {
   let descriptionElement = document.querySelector("#description");
   let humidityElement = document.querySelector("#humidity");
   let windElement = document.querySelector("#wind");
-  windElement.innerHTML = response.data.wind.speed;
+  let feelElement = document.querySelector("#feels");
+  feelElement.innerHTML = Math.round(response.data.main.feels_like);
+  windElement.innerHTML = Math.round(response.data.wind.speed);
   humidityElement.innerHTML = response.data.main.humidity;
   descriptionElement.innerHTML = response.data.weather[0].description;
 }
