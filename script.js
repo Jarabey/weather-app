@@ -274,7 +274,8 @@ darkModeToggle.addEventListener("click", () => {
 
 //Forecast Settings
 
-function displayForecast() {
+function displayForecast(response) {
+  console.log(response);
   let forecastElement = document.querySelector("#forecast");
 
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed", "Thu"];
