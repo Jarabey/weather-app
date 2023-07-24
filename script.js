@@ -117,6 +117,7 @@ searchButton.addEventListener("click", function (event) {
   event.preventDefault();
 
   let cityName = input.value;
+
   if (cityName.length === 0) {
     var err0 = "City Name is empty: Setting default to Bangkok";
     document.getElementById("logging").innerHTML = err0;
@@ -128,24 +129,27 @@ searchButton.addEventListener("click", function (event) {
     cityElement.textContent = capitalizedCityName;
     input.value = "";
   }
-
+  ("https://api.openweathermap.org/data/2.5/weather?q=london&appid=5f472b7acba333cd8a035ea85a0d4d4c&units=metric");
   let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
-  let country_name;
+  //  let country_name = document.getElementById("country-name").innerHTML; // no.
   axios.get(apiUrl).then(showTemperature);
   axios.get(apiUrl).then(weather_datetime);
-  // axios
-  //   .get(apiUrl)
-  //   .then(
-  //     (response) =>
-  //       `https://restcountries.com/v3.1/alpha/${response.data.sys.country}`
-  //   )
-  //   .then((resp) => {
-  //     country_name = resp.data[0].name.common;
-  //     console.log(country_name);
-  //   });
-  // axios.get(apiUrl).then(weather_datetime(response,country_name=country_name));
 });
+//   axios
+//     .get(apiUrl)
+//     .then(
+//       (response) =>
+//         `https://restcountries.com/v3.1/alpha/${response.data.sys.country}`
+//     )
+//     .then((resp) => {
+//       country_name = resp.data[0].name.common;
+//       console.log(country_name);
+//     });
+//   axios
+//     .get(apiUrl)
+//     .then(weather_datetime(response, (country_name = country_name)));
+// });
 
 function capitalizeCityName(cityName) {
   let words = cityName.split(" ");
@@ -267,3 +271,44 @@ let body = document.body;
 darkModeToggle.addEventListener("click", () => {
   body.classList.toggle("dark-mode");
 });
+
+//Forecast Settings
+
+function displayForecast() {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed", "Thu"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col">
+      <span class="dates">${day}</span>
+      <br />
+      <span class="climate-gif">
+        <img
+          src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481"
+          width="60px"
+        />
+        <br />
+      </span>
+      <span class="hot">28º/30º</span>
+    </div>
+`;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+  console.log(forecastHTML);
+}
+
+displayForecast();
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
+}
