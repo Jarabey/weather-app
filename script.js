@@ -272,21 +272,29 @@ darkModeToggle.addEventListener("click", () => {
   body.classList.toggle("dark-mode");
 });
 
-//Forecast Settings
+// Forecast Settings
+
+function formatDay(timeStamp) {
+  let date = new Date(timeStamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
 
 function displayForecast(response) {
   console.log(response);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
 
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue", "Wed", "Thu"];
-
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 7) {
+      forecastHTML =
+        forecastHTML +
+        `
     <div class="col">
-      <span class="dates">${day}</span>
+      <span class="dates">${formatDay(forecastDay.dt)}</span>
       <br />
       <span class="climate-gif">
         <img
@@ -295,21 +303,31 @@ function displayForecast(response) {
         />
         <br />
       </span>
-      <span class="hot">28º/30º</span>
+      <span class="hot"><span class="max"> ${Math.round(
+        forecastDay.temp.max
+      )}</span>º/<span class="min"> ${Math.round(
+          forecastDay.temp.min
+        )}</span>º</span>
     </div>
-`;
+    `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
   console.log(forecastHTML);
 }
-
-displayForecast();
-
 function getForecast(coordinates) {
-  console.log(coordinates);
+  let lat = coordinates.lat;
+  let lon = coordinates.lon;
   let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${coordinates.lat}&lon=${coordinates.lon}&appid=${apiKey}&units=metric`;
+  let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
+
+let coordinates = {
+  lat: 51.5085,
+  lon: -0.1257,
+};
+
+getForecast(coordinates);
