@@ -206,7 +206,11 @@ body.dark-mode {
 }
 
 .row {
-  padding: 0px 10px 0px 0px;
+  padding: 0px 9px 0px 0px;
+}
+
+.hot {
+  font-size: 15px;
 }
 
 .col {
