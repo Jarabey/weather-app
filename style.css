@@ -205,8 +205,16 @@ body.dark-mode {
   left: 20px;
 }
 
+.row {
+  padding: 0px 9px 0px 0px;
+}
+
+.hot {
+  font-size: 15px;
+}
+
 .col {
-  padding: 12px 25px 12px 25px;
+  padding: 12px 33px 12px 33px;
   text-align: center;
   background-color: transparent;
   border-radius: 15%;

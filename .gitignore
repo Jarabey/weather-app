@@ -1,0 +1,11 @@
+# Git Ignore is a file which tells github/git what to ignore when you're pushing to a git repository
+
+# VS Code generated files
+.vscode
+
+# Environment files
+env/
+node_modules/
+Makefile
+
+# Test filesgi
