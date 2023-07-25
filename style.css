@@ -244,6 +244,12 @@ body.dark-mode {
   color: #2f3542;
   font-weight: bold;
 }
+.logging2 {
+  font-size: 15px;
+  margin: 20px 0px 0px 0px;
+  color: #2f3542;
+  font-weight: bold;
+}
 
 body.dark-mode .credits,
 body.dark-mode .open-code,

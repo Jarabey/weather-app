@@ -1,7 +1,88 @@
 //Feature #1 Date and Hour
 
-function weather_datetime(response, country_name) {
-  console.log(response.data);
+//Feature #2 Search Button and Country
+
+let form = document.querySelector(".search-container");
+let input = document.querySelector(".placeholder-text");
+let cityElement = document.querySelector(".city");
+let searchButton = document.querySelector(".fa-solid.fa-magnifying-glass");
+
+form.addEventListener("keyup", function (event) {
+  event.preventDefault();
+  if (event.keyCode === 13) {
+    // window.alert(
+    //   "PLEASE PRESS SEARCH BUTTON IN THE FUTURE - Otherwise you'll miss the pretty animations!!"
+    // );
+    searchButton.click();
+  }
+});
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  let cityName = input.value;
+
+  let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
+  let units = "metric";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
+
+  axios.get(apiUrl).then(showTemperature);
+  axios.get(apiUrl).then(weather_datetime);
+  axios.get(apiUrl).then(getForecast);
+});
+
+searchButton.addEventListener("click", function (event) {
+  event.preventDefault();
+
+  let cityName = input.value;
+
+  if (cityName.length === 0) {
+    var err0 = "City Name is empty: Setting default to Bangkok";
+    document.getElementById("logging").innerHTML = err0;
+    cityName = "London";
+    document.getElementById("city").innerHTML = cityName;
+  } else {
+    document.getElementById("logging").innerHTML = "";
+    let capitalizedCityName = capitalizeCityName(cityName);
+    cityElement.textContent = capitalizedCityName;
+    input.value = "";
+  }
+  `https://api.openweathermap.org/data/2.5/weather?q=london&appid=cabdbda40038ba7d1165b953b1c7bd6c&units=metric`;
+  // let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
+  let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
+  //  let country_name = document.getElementById("country-name").innerHTML; // no.
+  axios.get(apiUrl).then(showTemperature);
+  axios.get(apiUrl).then(weather_datetime);
+  axios.get(apiUrl).then(getForecast);
+});
+//   axios
+//     .get(apiUrl)
+//     .then(
+//       (response) =>
+//         `https://restcountries.com/v3.1/alpha/${response.data.sys.country}`
+//     )
+//     .then((resp) => {
+//       country_name = resp.data[0].name.common;
+//       console.log(country_name);
+//     });
+//   axios
+//     .get(apiUrl)
+//     .then(weather_datetime(response, (country_name = country_name)));
+// });
+
+function capitalizeCityName(cityName) {
+  let words = cityName.split(" ");
+  let capitalizedWords = words.map((word) => {
+    let lowercaseWord = word.toLowerCase();
+    let capitalizedWord =
+      lowercaseWord.charAt(0).toUpperCase() + lowercaseWord.slice(1);
+    return capitalizedWord;
+  });
+  return capitalizedWords.join(" ");
+}
+
+function weather_datetime(response) {
+  // console.log(response.data);
   let timezone_element = document.querySelector("#local_timezone");
   let timezone = response.data.timezone;
   let local = new Date();
@@ -84,84 +165,6 @@ function weather_datetime(response, country_name) {
     weather_datetime(response);
   }, 10000);
 }
-//Feature #2 Search Button and Country
-
-let form = document.querySelector(".search-container");
-let input = document.querySelector(".placeholder-text");
-let cityElement = document.querySelector(".city");
-let searchButton = document.querySelector(".fa-solid.fa-magnifying-glass");
-
-form.addEventListener("keyup", function (event) {
-  event.preventDefault();
-  if (event.keyCode === 13) {
-    // window.alert(
-    //   "PLEASE PRESS SEARCH BUTTON IN THE FUTURE - Otherwise you'll miss the pretty animations!!"
-    // );
-    searchButton.click();
-  }
-});
-form.addEventListener("submit", function (event) {
-  event.preventDefault();
-
-  let cityName = input.value;
-
-  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
-
-  axios.get(apiUrl).then(showTemperature);
-  axios.get(apiUrl).then(weather_datetime);
-});
-
-searchButton.addEventListener("click", function (event) {
-  event.preventDefault();
-
-  let cityName = input.value;
-
-  if (cityName.length === 0) {
-    var err0 = "City Name is empty: Setting default to Bangkok";
-    document.getElementById("logging").innerHTML = err0;
-    cityName = "London";
-    document.getElementById("city").innerHTML = cityName;
-  } else {
-    document.getElementById("logging").innerHTML = "";
-    let capitalizedCityName = capitalizeCityName(cityName);
-    cityElement.textContent = capitalizedCityName;
-    input.value = "";
-  }
-  ("https://api.openweathermap.org/data/2.5/weather?q=london&appid=5f472b7acba333cd8a035ea85a0d4d4c&units=metric");
-  let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
-  //  let country_name = document.getElementById("country-name").innerHTML; // no.
-  axios.get(apiUrl).then(showTemperature);
-  axios.get(apiUrl).then(weather_datetime);
-});
-//   axios
-//     .get(apiUrl)
-//     .then(
-//       (response) =>
-//         `https://restcountries.com/v3.1/alpha/${response.data.sys.country}`
-//     )
-//     .then((resp) => {
-//       country_name = resp.data[0].name.common;
-//       console.log(country_name);
-//     });
-//   axios
-//     .get(apiUrl)
-//     .then(weather_datetime(response, (country_name = country_name)));
-// });
-
-function capitalizeCityName(cityName) {
-  let words = cityName.split(" ");
-  let capitalizedWords = words.map((word) => {
-    let lowercaseWord = word.toLowerCase();
-    let capitalizedWord =
-      lowercaseWord.charAt(0).toUpperCase() + lowercaseWord.slice(1);
-    return capitalizedWord;
-  });
-  return capitalizedWords.join(" ");
-}
-
 //Feature #3 Temperature
 
 function showTemperature(response) {
@@ -317,17 +320,11 @@ function displayForecast(response) {
   forecastElement.innerHTML = forecastHTML;
   console.log(forecastHTML);
 }
-function getForecast(coordinates) {
-  let lat = coordinates.lat;
-  let lon = coordinates.lon;
-  let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
+function getForecast(response) {
+  var lat = response.data.lat;
+  var lon = response.data.lon;
+  let jacobo_text = `lat: ${lat}\n lon: ${lon}`;
+  document.getElementById("logging2").innerHTML = jacobo_text;
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
 }
-
-let coordinates = {
-  lat: 51.5085,
-  lon: -0.1257,
-};
-
-getForecast(coordinates);
