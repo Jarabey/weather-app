@@ -1,23 +1,22 @@
 // Global Variables
-let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
-let defaultCity = "Bangkok";
+apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
+defaultCity = "Bangkok";
 
 //Feature #1 Date and Hour
 function weather_datetime(response) {
   let timezone = response.data.timezone;
-  let local = new Date();
-  let country_now = new Date();
-  let timezone_diff = country_now.getTime() + timezone * 1000;
-  country_now.setTime(timezone_diff);
-  let now=country_now;
+  var local = new Date();
+  var now = new Date();
+  var timezone_diff = local.getTime() + timezone * 1000 - local.getTimezoneOffset() * 60000;
+  now.setTime(timezone_diff);
   // now.setTime(timezone_diff);
-  let date = now.getUTCDate();
+  var date = now.getUTCDate();
   console.log(date);
-  let day = now.getUTCDay();
+  var day = now.getUTCDay();
   console.log(day);
-  let year = now.getFullYear();
+  var year = now.getFullYear();
   console.log(year);
-  let month = now.getMonth();
+  var month = now.getMonth();
   console.log(month);
   var ampm;
   var local_ampm;
@@ -85,7 +84,7 @@ function weather_datetime(response) {
   local_heading.innerHTML = `Your Current Local Time - ${local_hour}:${local_minutes} ${local_ampm}`;
   setTimeout(function () {
     weather_datetime(response);
-  }, 1000);
+  }, 60000);
 }
 
 //Feature #2 Search Button and Country
@@ -107,17 +106,12 @@ form.addEventListener("keyup", function (event) {
 form.addEventListener("submit", function (event) {
   event.preventDefault();
 
-  let cityName = input.value;
-  
-  let units = "metric";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
-
 });
 
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
 
-  let cityName = input.value;
+  cityName = input.value;
   
   if (cityName.length === 0) {
     var err0 = `City Name is empty: Setting default to ${defaultCity}`;
