@@ -328,6 +328,8 @@ function getForecast(response) {
   axios.get(apiUrl).then(displayForecast);
 }
 
+// Weather Icons
+
 function getWeatherIconUrl(weatherCondition) {
   const weatherIconMap = {
     Clouds:
