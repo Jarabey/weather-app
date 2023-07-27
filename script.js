@@ -7,7 +7,8 @@ function weather_datetime(response) {
   let timezone = response.data.timezone;
   var local = new Date();
   var now = new Date();
-  var timezone_diff = local.getTime() + timezone * 1000 - local.getTimezoneOffset() * 60000;
+  var timezone_diff =
+    local.getTime() + timezone * 1000 - local.getTimezoneOffset() * 60000;
   now.setTime(timezone_diff);
   // now.setTime(timezone_diff);
   var date = now.getUTCDate();
@@ -105,21 +106,20 @@ form.addEventListener("keyup", function (event) {
 });
 form.addEventListener("submit", function (event) {
   event.preventDefault();
-
 });
 
 searchButton.addEventListener("click", function (event) {
   event.preventDefault();
 
   cityName = input.value;
-  
+
   if (cityName.length === 0) {
     var err0 = `City Name is empty: Setting default to ${defaultCity}`;
     document.getElementById("logging").innerHTML = err0;
     cityName = defaultCity;
     document.getElementById("city").innerHTML = cityName;
   } else {
-    defaultCity=cityName
+    defaultCity = cityName;
     document.getElementById("logging").innerHTML = "";
     let capitalizedCityName = capitalizeCityName(cityName);
     cityElement.textContent = capitalizedCityName;
@@ -158,7 +158,6 @@ function capitalizeCityName(cityName) {
   });
   return capitalizedWords.join(" ");
 }
-
 
 //Feature #3 Temperature
 
@@ -269,7 +268,6 @@ let body = document.body;
 darkModeToggle.addEventListener("click", () => {
   body.classList.toggle("dark-mode");
 });
-
 // Forecast Settings
 
 function formatDay(timeStamp) {
@@ -288,6 +286,7 @@ function displayForecast(response) {
   let forecastHTML = `<div class="row">`;
   forecast.forEach(function (forecastDay, index) {
     if (index < 7) {
+      let weatherIconUrl = getWeatherIconUrl(forecastDay.weather[0].main);
       forecastHTML =
         forecastHTML +
         `
@@ -296,7 +295,7 @@ function displayForecast(response) {
       <br />
       <span class="climate-gif">
         <img
-          src="https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481"
+          src="${weatherIconUrl}"
           width="60px"
         />
         <br />
@@ -320,4 +319,37 @@ function getForecast(response) {
   let lon = response.data.coord.lon;
   let apiUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayForecast);
+}
+
+// Weather Icons
+
+function getWeatherIconUrl(weatherCondition) {
+  const weatherIconMap = {
+    Clouds:
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481",
+    Drizzle:
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/704/original/output-onlinegiftools%282%29.gif?1688702896",
+    Thunderstorm:
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/707/original/output-onlinegiftools%285%29.gif?1688702911",
+    Rain: "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/703/original/output-onlinegiftools%281%29.gif?1688702891",
+    Snow: "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/705/original/output-onlinegiftools%283%29.gif?1688702901",
+    Mist: "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481",
+    Smoke:
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/709/original/output-onlinegiftools%287%29.gif?1688702923",
+    Haze: "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/702/original/output-onlinegiftools_%282%29.gif?1688702884",
+    Dust: "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/709/original/output-onlinegiftools%287%29.gif?1688702923",
+    Fog: "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/702/original/output-onlinegiftools_%282%29.gif?168870288",
+    Ash: "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481",
+    Squall:
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/709/original/output-onlinegiftools%287%29.gif?1688702923",
+    Tornado:
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/709/original/output-onlinegiftools%287%29.gif?1688702923",
+    Clear:
+      "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/708/original/output-onlinegiftools%286%29.gif?1688702917",
+  };
+
+  return (
+    weatherIconMap[weatherCondition] ||
+    "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/708/original/output-onlinegiftools%286%29.gif?1688702917"
+  );
 }
