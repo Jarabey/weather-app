@@ -3,14 +3,19 @@ let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
 let timezoneKey = "5c0c7133b3b4440392d8854d9aee3e63";
 let defaultCity = "Bangkok";
 
+async function refreshTime(response) {
+  weather_datetime(response);
+  setInterval(weather_datetime(response), 60000);
+}
 function weather_datetime(response) {
   console.log(response.data);
+
   let timezone_element = document.querySelector("#local_timezone");
   let timezone = response.data.timezone;
   let local = new Date();
   let now = new Date();
-  let timezone_diff = now.getTime() + timezone * 1000;
-  now.setTime(timezone_diff);
+  // let timezone_diff = now.getTime() + timezone * 1000;
+  // now.setTime(timezone_diff);
   let date = now.getUTCDate();
   console.log(date);
   let day = now.getUTCDay();
@@ -21,10 +26,11 @@ function weather_datetime(response) {
   console.log(month);
   var ampm;
   var local_ampm;
-  var hour = now.getUTCHours().toLocaleString("en-GB", {
-    minimumIntegerDigits: 2,
-    useGrouping: false,
-  });
+  // var hour = now.getUTCHours().toLocaleString("en-GB", {
+  //   minimumIntegerDigits: 2,
+  //   useGrouping: false,
+  // });
+  let hour = moment.tz(timezone, response.data.timezone_location).format("HH");
   let minutes = now.getUTCMinutes().toLocaleString("en-GB", {
     minimumIntegerDigits: 2,
     useGrouping: false,
@@ -37,6 +43,7 @@ function weather_datetime(response) {
     minimumIntegerDigits: 2,
     useGrouping: false,
   });
+
   let local_minutes = local.getMinutes().toLocaleString("en-GB", {
     minimumIntegerDigits: 2,
     useGrouping: false,
@@ -83,9 +90,6 @@ function weather_datetime(response) {
   let local_heading = document.querySelector("#local_dates");
   heading.innerHTML = `${dayName}, ${monthName} ${date}, ${year} ${hour}:${minutes} ${ampm}`;
   local_heading.innerHTML = `Your Current Local Time - ${local_hour}:${local_minutes} ${local_ampm}`;
-  setTimeout(function () {
-    weather_datetime(response);
-  }, 60000);
 }
 
 //Feature #2 Search Button and Country
@@ -131,9 +135,8 @@ searchButton.addEventListener("click", function (event) {
   //  let country_name = document.getElementById("country-name").innerHTML; // no.
   let timzoneUrl = `https://timezone.abstractapi.com/v1/current_time/?api_key=5c0c7133b3b4440392d8854d9aee3e63&location=${cityName}`;
   axios.get(apiUrl).then(showTemperature);
-  axios.get(apiUrl).then(weather_datetime);
+  axios.get(timzoneUrl).then(refreshTime);
   axios.get(apiUrl).then(getForecast);
-  axios.get(timzoneUrl).then();
 });
 //   axios
 //     .get(apiUrl)
