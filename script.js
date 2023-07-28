@@ -359,6 +359,6 @@ function getWeatherIconUrl(weatherCondition) {
 
   return (
     weatherIconMap[weatherCondition] ||
-    "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/708/original/output-onlinegiftools%286%29.gif?1688702917"
+    "https://s3.amazonaws.com/shecodesio-production/uploads/files/000/088/700/original/output-onlinegiftools.gif?1688700481"
   );
 }
