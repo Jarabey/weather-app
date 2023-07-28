@@ -245,6 +245,12 @@ body.dark-mode {
   font-weight: bold;
 }
 
+.linkedin-page {
+  text-align: center;
+  font-family: "Poppins" sans-serif;
+  margin: 0 auto;
+}
+
 body.dark-mode .credits,
 body.dark-mode .open-code,
 body.dark-mode .logging {

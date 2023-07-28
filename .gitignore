@@ -8,4 +8,5 @@ env/
 node_modules/
 Makefile
 
+.*
 # Test filesgi

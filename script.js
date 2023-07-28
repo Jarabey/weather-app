@@ -1,23 +1,23 @@
 // Global Variables
-apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
-defaultCity = "Bangkok";
+let apiKey = "cabdbda40038ba7d1165b953b1c7bd6c";
+let timezoneKey = "5c0c7133b3b4440392d8854d9aee3e63";
+let defaultCity = "Bangkok";
 
-//Feature #1 Date and Hour
 function weather_datetime(response) {
+  console.log(response.data);
+  let timezone_element = document.querySelector("#local_timezone");
   let timezone = response.data.timezone;
-  var local = new Date();
-  var now = new Date();
-  var timezone_diff =
-    local.getTime() + timezone * 1000 - local.getTimezoneOffset() * 60000;
+  let local = new Date();
+  let now = new Date();
+  let timezone_diff = now.getTime() + timezone * 1000;
   now.setTime(timezone_diff);
-  // now.setTime(timezone_diff);
-  var date = now.getUTCDate();
+  let date = now.getUTCDate();
   console.log(date);
-  var day = now.getUTCDay();
+  let day = now.getUTCDay();
   console.log(day);
-  var year = now.getFullYear();
+  let year = now.getFullYear();
   console.log(year);
-  var month = now.getMonth();
+  let month = now.getMonth();
   console.log(month);
   var ampm;
   var local_ampm;
@@ -129,9 +129,11 @@ searchButton.addEventListener("click", function (event) {
   // let apiKey = "5f472b7acba333cd8a035ea85a0d4d4c";
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${cityName}&appid=${apiKey}&units=metric`;
   //  let country_name = document.getElementById("country-name").innerHTML; // no.
+  let timzoneUrl = `https://timezone.abstractapi.com/v1/current_time/?api_key=5c0c7133b3b4440392d8854d9aee3e63&location=${cityName}`;
   axios.get(apiUrl).then(showTemperature);
   axios.get(apiUrl).then(weather_datetime);
   axios.get(apiUrl).then(getForecast);
+  axios.get(timzoneUrl).then();
 });
 //   axios
 //     .get(apiUrl)
@@ -147,7 +149,11 @@ searchButton.addEventListener("click", function (event) {
 //     .get(apiUrl)
 //     .then(weather_datetime(response, (country_name = country_name)));
 // });
-
+function updateLocalTime(response) {
+  let localDatetime = response.data.datetime;
+  console.log(localDatetime);
+  return localDatetime;
+}
 function capitalizeCityName(cityName) {
   let words = cityName.split(" ");
   let capitalizedWords = words.map((word) => {
